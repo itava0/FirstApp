@@ -8,27 +8,40 @@ public class Main {
         char[] opCodes = {'d', 'a', 's', 'm'};
         double[] results = new double[opCodes.length];
 
-        for (int i =0; i < opCodes.length; i++) {
-            switch (opCodes[i]) {
-                case 'a':
-                    results[i] = leftVals[i] + rightVals[i];
-                    break;
-                case 's':
-                    results[i] = leftVals[i] - rightVals[i];
-                    break;
-                case 'm':
-                    results[i] = leftVals[i] * rightVals[i];
-                    break;
-                case 'd':
-                    results[i] = leftVals[i] / rightVals[i];
-                    break;
-                default:
-                    System.out.println("Invalid opCode: " + opCodes[i]);
-                    results[i] = 0.0d;
-                    break;
+        if(args.length == 0) {
+            for (int i = 0; i < opCodes.length; i++) {
+                results[i] = execute(opCodes[i], leftVals[i], rightVals[i]);
             }
+            for ( double currentResult : results) {
+                System.out.println(currentResult);
+            }
+        } else if (args.length == 3) {
+            handleCommandline(args);
+        } else {
+            System.out.println("Please provide an operation code and 2 numeric values");
         }
 
-        System.out.println(Arrays.toString(results));
+    }
+
+    private static void handleCommandline(String[] args) {
+        char opCode = args[0].charAt(0);
+        double leftVal = Double.parseDouble(args[1]);
+        double rightVal = Double.parseDouble(args[2]);
+        double result = execute(opCode, leftVal, rightVal);
+        System.out.println(result);
+    }
+
+    private static double execute(char opCode, double leftVal,double rightVal) {
+        double results = switch (opCode) {
+            case 'a' -> leftVal + rightVal;
+            case 's' -> leftVal - rightVal;
+            case 'm' -> leftVal * rightVal;
+            case 'd' -> leftVal / rightVal;
+            default -> {
+                System.out.println("Invalid opCode: " + opCode);
+                yield 0.0d;
+            }
+        };
+        return results;
     }
 }
