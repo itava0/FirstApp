@@ -1,24 +1,34 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
-        double value1 = 100.00;
-        double value2 = 50.00;
-        double result = 0.00;
-        char opCode = 'd';
+        double[] leftVals = {100.0d, 25.0d, 225.0d, 11.0d};
+        double[] rightVals = {50.0d, 92.0d, 17.0d, 3.0d};
+        char[] opCodes = {'d', 'a', 's', 'm'};
+        double[] results = new double[opCodes.length];
 
-        if(opCode == 'a') {
-            result = value1 + value2;
-        } else if(opCode == 's') {
-            result = value1 - value2;
-        } else if(opCode == 'm') {
-            result = value1 * value2;
-        } else if (opCode == 'd') {
-            result = value1 / value2;
-        } else {
-            System.out.println("Invalid opCode " + opCode);
-            result = 0.00;
+        for (int i =0; i < opCodes.length; i++) {
+            switch (opCodes[i]) {
+                case 'a':
+                    results[i] = leftVals[i] + rightVals[i];
+                    break;
+                case 's':
+                    results[i] = leftVals[i] - rightVals[i];
+                    break;
+                case 'm':
+                    results[i] = leftVals[i] * rightVals[i];
+                    break;
+                case 'd':
+                    results[i] = leftVals[i] / rightVals[i];
+                    break;
+                default:
+                    System.out.println("Invalid opCode: " + opCodes[i]);
+                    results[i] = 0.0d;
+                    break;
+            }
         }
 
-        System.out.println(result);
+        System.out.println(Arrays.toString(results));
     }
 }
